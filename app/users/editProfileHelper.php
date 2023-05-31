@@ -55,6 +55,7 @@ try {
                 'user_name' => $_POST['userName'],
                 'email' => $_POST['email'],
                 'phone_number' => $_POST['phoneNo'],
+                'user_locale' => $_POST['user_locale'],
             );
 
             if (isset($_POST['password']) && trim($_POST['password']) != "") {

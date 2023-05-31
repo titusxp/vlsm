@@ -22,6 +22,8 @@ $db->where("login_id", $_SESSION['loginId']);
 $db->orWhere('user_id', $_SESSION['userId']);
 $data = $db->get("user_login_history", 25);
 
+//List of App locales or languages
+$localeLists = ['en_US','fr_FR'];
 
 ?>
 
@@ -55,15 +57,27 @@ $data = $db->get("user_login_history", 25);
         <form class="form-horizontal" method='post' name='userEditForm' id='userEditForm' autocomplete="off" action="editProfileHelper.php">
           <div class="box-body">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="form-group">
-                  <label for="userName" class="col-lg-2 control-label"><?php echo _("Your Full Name"); ?> <span class="mandatory">*</span></label>
-                  <div class="col-lg-10">
+                  <label for="userName" class="col-lg-4 control-label"><?php echo _("Name"); ?> <span class="mandatory">*</span></label>
+                  <div class="col-lg-8">
                     <input type="text" class="form-control isRequired" id="userName" name="userName" placeholder="<?php echo _('Your Full Name'); ?>" title="<?php echo _('Please enter user name'); ?>" value="<?php echo $userInfo['user_name']; ?>" />
                     <input type="hidden" name="userId" id="userId" value="<?php echo base64_encode($userInfo['user_id']); ?>" />
                   </div>
                 </div>
               </div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="app_locale" class="col-lg-4 control-label"><?php echo _("User Locale"); ?> <span class="mandatory">*</span> </label>
+											<div class="col-lg-8">
+												<select class="form-control isRequired readPage" name="user_locale" id="user_locale" title="<?php echo _('Please select user Locale'); ?>">
+													<?php foreach ($localeLists as $locale) { ?>
+														<option value="<?php echo $locale; ?>" <?php echo (isset($arr['app_locale']) && $arr['app_locale'] == $locale) ? 'selected="selected"' : ''; ?>><?php echo $locale; ?></option>
+													<?php } ?>
+												</select>
+											</div>
+										</div>
+									</div>
             </div>
             <div class="row">
               <div class="col-md-6">

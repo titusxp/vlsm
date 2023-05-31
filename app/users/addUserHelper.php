@@ -52,6 +52,7 @@ try {
             'status'                => 'active',
             'app_access'            => $_POST['appAccessable'],
             'user_signature'        => $imageName,
+            'user_locale'           => $_POST['user_locale'],
             'force_password_reset'  => 1
         );
 
