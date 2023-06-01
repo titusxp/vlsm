@@ -33,7 +33,8 @@ $province = "<option value=''> -- Select -- </option>";
 foreach ($pdResult as $provinceName) {
      $province .= "<option value='" . $provinceName['geo_name'] . "##" . $provinceName['geo_code'] . "'>" . ($provinceName['geo_name']) . "</option>";
 }
-
+//List of App locales or languages
+$localeLists = ['en_US','fr_FR'];
 // $facility = '';
 // $facility.="<option data-code='' data-emails='' data-mobile-nos='' data-contact-person='' value=''> -- Select -- </option>";
 //province end
@@ -177,6 +178,20 @@ $ftResult = $db->rawQuery($fQuery);
                                              </div>
                                         </div>
                                    </div>
+                              </div>
+                              <div class="row">
+                              <div class="col-md-6">
+										<div class="form-group">
+											<label for="app_locale" class="col-lg-4 control-label"><?php echo _("User Locale"); ?> <span class="mandatory">*</span> </label>
+											<div class="col-lg-7">
+												<select class="form-control isRequired readPage" name="user_locale" id="user_locale" title="<?php echo _('Please select user Locale'); ?>">
+													<?php foreach ($localeLists as $locale) { ?>
+														<option value="<?php echo $locale; ?>" <?php echo (isset($arr['app_locale']) && $arr['app_locale'] == $locale) ? 'selected="selected"' : ''; ?>><?php echo $locale; ?></option>
+													<?php } ?>
+												</select>
+											</div>
+										</div>
+									</div>
                               </div>
                               <div class="row">
                                    <div class="col-md-6">
