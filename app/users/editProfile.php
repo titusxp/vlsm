@@ -3,6 +3,7 @@
 use App\Registries\ContainerRegistry;
 use App\Services\CommonService;
 use App\Utilities\DateUtility;
+use App\Translation\Translation;
 
 
 require_once APPLICATION_PATH . '/header.php';
@@ -37,10 +38,10 @@ $localeLists = ['en_US','fr_FR'];
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1> <em class="fa-solid fa-gears"></em> <?php echo _("Edit Profile"); ?></h1>
+    <h1> <em class="fa-solid fa-gears"></em> <?php echo Translation::translate("Edit Profile"); ?></h1>
     <ol class="breadcrumb">
-      <li><a href="/"><em class="fa-solid fa-chart-pie"></em> <?php echo _("Home"); ?></a></li>
-      <li class="active"><?php echo _("Users"); ?></li>
+      <li><a href="/"><em class="fa-solid fa-chart-pie"></em> <?php echo Translation::translate("Home"); ?></a></li>
+      <li class="active"><?php echo Translation::translate("Users"); ?></li>
     </ol>
   </section>
 
@@ -59,18 +60,18 @@ $localeLists = ['en_US','fr_FR'];
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="userName" class="col-lg-4 control-label"><?php echo _("Name"); ?> <span class="mandatory">*</span></label>
+                  <label for="userName" class="col-lg-4 control-label"><?php echo Translation::translate("Name"); ?> <span class="mandatory">*</span></label>
                   <div class="col-lg-8">
-                    <input type="text" class="form-control isRequired" id="userName" name="userName" placeholder="<?php echo _('Your Full Name'); ?>" title="<?php echo _('Please enter user name'); ?>" value="<?php echo $userInfo['user_name']; ?>" />
+                    <input type="text" class="form-control isRequired" id="userName" name="userName" placeholder="<?php echo Translation::translate('Your Full Name'); ?>" title="<?php echo Translation::translate('Please enter user name'); ?>" value="<?php echo $userInfo['user_name']; ?>" />
                     <input type="hidden" name="userId" id="userId" value="<?php echo base64_encode($userInfo['user_id']); ?>" />
                   </div>
                 </div>
               </div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="app_locale" class="col-lg-4 control-label"><?php echo _("User Locale"); ?> <span class="mandatory">*</span> </label>
+											<label for="app_locale" class="col-lg-4 control-label"><?php echo Translation::translate("User Locale"); ?> <span class="mandatory">*</span> </label>
 											<div class="col-lg-8">
-												<select class="form-control isRequired readPage" name="user_locale" id="user_locale" title="<?php echo _('Please select user Locale'); ?>">
+												<select class="form-control isRequired readPage" name="user_locale" id="user_locale" title="<?php echo Translation::translate('Please select user Locale'); ?>">
 													<?php foreach ($localeLists as $locale) { ?>
 														<option value="<?php echo $locale; ?>" <?php echo (isset($arr['app_locale']) && $arr['app_locale'] == $locale) ? 'selected="selected"' : ''; ?>><?php echo $locale; ?></option>
 													<?php } ?>
@@ -82,17 +83,17 @@ $localeLists = ['en_US','fr_FR'];
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="email" class="col-lg-4 control-label"><?php echo _("Official Email"); ?> </label>
+                  <label for="email" class="col-lg-4 control-label"><?php echo Translation::translate("Official Email"); ?> </label>
                   <div class="col-lg-8">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="<?php echo _('Official Email'); ?>" title="<?php echo _('Please enter email'); ?>" value="<?php echo $userInfo['email']; ?>" onblur="checkNameValidation('user_details','email',this,'<?php echo "user_id##" . $userInfo['user_id']; ?>','<?php echo _("This email id that you entered already exists.Try another email id"); ?>',null)" />
+                    <input type="text" class="form-control" id="email" name="email" placeholder="<?php echo Translation::translate('Official Email'); ?>" title="<?php echo Translation::translate('Please enter email'); ?>" value="<?php echo $userInfo['email']; ?>" onblur="checkNameValidation('user_details','email',this,'<?php echo "user_id##" . $userInfo['user_id']; ?>','<?php echo Translation::translate("This email id that you entered already exists.Try another email id"); ?>',null)" />
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="phoneNo" class="col-lg-4 control-label"><?php echo _("Phone Number"); ?></label>
+                  <label for="phoneNo" class="col-lg-4 control-label"><?php echo Translation::translate("Phone Number"); ?></label>
                   <div class="col-lg-8">
-                    <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="<?php echo _('Phone Number'); ?>" title="<?php echo _('Please enter phone number'); ?>" value="<?php echo $userInfo['phone_number']; ?>" />
+                    <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="<?php echo Translation::translate('Phone Number'); ?>" title="<?php echo Translation::translate('Please enter phone number'); ?>" value="<?php echo $userInfo['phone_number']; ?>" />
                   </div>
                 </div>
               </div>
@@ -101,9 +102,9 @@ $localeLists = ['en_US','fr_FR'];
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="password" class="col-lg-4 control-label"><?php echo _("Password"); ?> </label>
+                  <label for="password" class="col-lg-4 control-label"><?php echo Translation::translate("Password"); ?> </label>
                   <div class="col-lg-8">
-                    <input type="password" class="form-control ppwd" id="password" name="password" placeholder="<?php echo _('Password'); ?>" title="<?php echo _('Please enter the password'); ?>" maxlength="16" /><br>
+                    <input type="password" class="form-control ppwd" id="password" name="password" placeholder="<?php echo Translation::translate('Password'); ?>" title="<?php echo Translation::translate('Please enter the password'); ?>" maxlength="16" /><br>
                     <button type="button" id="generatePassword" onclick="passwordType();" class="btn btn-default"><strong>Generate Random Password</strong></button><br>
                     <code><?= _("Password must be at least 12 characters long and must include AT LEAST one number, one alphabet and may have special characters.") ?></code>
                   </div>
@@ -111,9 +112,9 @@ $localeLists = ['en_US','fr_FR'];
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="confirmPassword" class="col-lg-4 control-label"><?php echo _("Confirm Password"); ?></label>
+                  <label for="confirmPassword" class="col-lg-4 control-label"><?php echo Translation::translate("Confirm Password"); ?></label>
                   <div class="col-lg-8">
-                    <input type="password" class="form-control cpwd confirmPassword" id="confirmPassword" name="password" placeholder="<?php echo _('Confirm Password'); ?>" title="" maxlength="16" />
+                    <input type="password" class="form-control cpwd confirmPassword" id="confirmPassword" name="password" placeholder="<?php echo Translation::translate('Confirm Password'); ?>" title="" maxlength="16" />
                   </div>
                 </div>
               </div>
@@ -122,8 +123,8 @@ $localeLists = ['en_US','fr_FR'];
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            <a class="btn btn-primary" href="javascript:void(0);" onclick="validateNow();return false;"><?php echo _("Submit"); ?></a>
-            <a href="/dashboard/index.php" class="btn btn-default"> <?php echo _("Cancel"); ?></a>
+            <a class="btn btn-primary" href="javascript:void(0);" onclick="validateNow();return false;"><?php echo Translation::translate("Submit"); ?></a>
+            <a href="/dashboard/index.php" class="btn btn-default"> <?php echo Translation::translate("Cancel"); ?></a>
           </div>
           <!-- /.box-footer -->
         </form>

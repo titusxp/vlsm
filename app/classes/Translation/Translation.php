@@ -180,6 +180,42 @@ class Translation
             'Sample Monitoring Report' =>[
                 'en_US' => 'Sample Monitoring Report',
                 'fr_FR' => 'Exe rapport de surveillance'
+            ],
+            'Name' =>[
+                'en_US' => 'Name',
+                'fr_FR' =>'Nom'
+            ],
+            'User Locale' =>[
+                'en_US' => 'User Locale',
+                'fr_FR' => 'Langue'
+            ],
+            'Official Email' =>[
+                'en_US' => 'Official Email',
+                'fr_FR' => 'E-mail officiel'
+            ],
+            'Phone Number' =>[
+                'en_US' => 'Phone Number',
+                'fr_FR' => 'Numéro de téléphone'
+            ],
+            'Password' =>[
+                'en_US' => 'Password',
+                'fr_FR' => 'Mot de passe'
+            ],
+            'Confirm Password' =>[
+                'en_US' => 'Confirm Password',
+                'fr_FR' => 'Confirmez le mot de passe'
+            ],
+            'Submit' =>[
+                'en_US' => 'Submit',
+                'fr_FR' => 'Soumettre'
+            ],
+            'Cancel' =>[
+                'en_US' => 'Cancel',
+                'fr_FR' => 'Annuler'
+            ],
+            'Password must be at least 12 characters long and must include AT LEAST one number, one alphabet and may have special characters.' =>[
+                'en_US' => 'Password must be at least 12 characters long and must include AT LEAST one number, one alphabet and may have special characters.',
+                'fr_FR' => 'Le mot de passe doit comporter au moins 12 caractères et doit inclure AU MOINS un chiffre, un alphabet et peut avoir des caractères spéciaux.'
             ]
             
         ];
