@@ -23,7 +23,8 @@ $healthFacilites = $facilitiesService->getHealthFacilities('vl');
 /** @var GeoLocationsService $geolocationService */
 $geolocationService = ContainerRegistry::get(GeoLocationsService::class);
 $facilitiesDropdown = $general->generateSelectOptions($healthFacilites, null, "-- Select --");
-
+$testingLabs = $facilitiesService->getTestingLabs('vl');
+$testingLabsDropdown = $general->generateSelectOptions($testingLabs, null, "-- Select --");
 
 $sQuery = "SELECT * FROM r_vl_sample_type WHERE `status`='active'";
 $sResult = $db->rawQuery($sQuery);
