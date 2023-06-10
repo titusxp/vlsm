@@ -136,7 +136,7 @@ $sFormat = '';
                                         <div class="row">
                                              <div class="col-xs-4 col-md-4">
                                                   <div class="form-group">
-                                                       <label for="province">State/Province <span class="mandatory">*</span></label>
+                                                       <label for="province">Region <span class="mandatory">*</span></label>
                                                        <select class="form-control isRequired" name="province" id="province" title="Please choose state" style="width:100%;" onchange="getProvinceDistricts(this);">
                                                             <?php echo $province; ?>
                                                        </select>
@@ -144,7 +144,7 @@ $sFormat = '';
                                              </div>
                                              <div class="col-xs-4 col-md-4">
                                                   <div class="form-group">
-                                                       <label for="district">District/County <span class="mandatory">*</span></label>
+                                                       <label for="district">District <span class="mandatory">*</span></label>
                                                        <select class="form-control isRequired" name="district" id="district" title="Please choose county" style="width:100%;" onchange="getFacilities(this);">
                                                             <option value=""> -- Select -- </option>
                                                        </select>
@@ -152,7 +152,7 @@ $sFormat = '';
                                              </div>
                                              <div class="col-xs-4 col-md-4">
                                                   <div class="form-group">
-                                                       <label for="fName">Clinic/Health Center <span class="mandatory">*</span></label>
+                                                       <label for="fName">Facility <span class="mandatory">*</span></label>
                                                        <select class="form-control isRequired select2" id="fName" name="fName" title="Please select clinic/health center name" style="width:100%;" onchange="getfacilityProvinceDetails(this);fillFacilityDetails();setSampleDispatchDate();">
                                                             <?php echo $facility;  ?>
                                                        </select>
