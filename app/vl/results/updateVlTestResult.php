@@ -269,6 +269,8 @@ if ($arr['vl_form'] == 1) {
 	include('forms/update-rwanda-result.php');
 } else if ($arr['vl_form'] == 8) {
 	// include('forms/update-angola-result.php');
+} else if($arr['vl_form'] ==  9){
+	include('forms/update-cameroon-result.php');
 }
 
 ?>
