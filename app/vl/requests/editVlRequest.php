@@ -278,6 +278,7 @@ $fileArray = array(
      6 => 'forms/edit-who.php',
      7 => 'forms/edit-rwanda.php',
      8 => 'forms/edit-angola.php',
+     9 => 'forms/edit-cameroon.php',
 );
 
 require($fileArray[$arr['vl_form']]);

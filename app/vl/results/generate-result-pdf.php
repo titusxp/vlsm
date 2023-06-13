@@ -194,4 +194,6 @@ if ($arr['vl_form'] == 1) {
   include('pdf/result-pdf-rwanda.php');
 } elseif ($arr['vl_form'] == 8) {
   include('pdf/result-pdf-angola.php');
+}elseif ($arr['vl_form'] == 9){
+  include('pdf/result-pdf-cameroon.php');
 }

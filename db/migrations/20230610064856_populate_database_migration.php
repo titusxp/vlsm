@@ -13,8 +13,11 @@ final class PopulateDatabaseMigration extends AbstractMigration
             $table->addColumn('user_locale', 'string', ['limit' => 10, 'default' => 'fr_FR', 'after' => 'email'])
                   ->update();
 
+            $addFormForCameroon = <<<SQL
+               INSERT INTO `s_available_country_forms` (`vlsm_country_id`, `form_name`, `short_name`) VALUES (9, "Cameroon", "cameroon");
+               UPDATE `global_config` SET `value` = '9' WHERE `global_config`.`name` = 'vl_form';
+            SQL;
 
-             
             $geographicalDivisions = <<<SQL
                 INSERT INTO `vlsm`.`geographical_divisions`
                             
@@ -7856,6 +7859,42 @@ final class PopulateDatabaseMigration extends AbstractMigration
                 ('vl',3869),
                 ('vl',3870);
             SQL;
+        $addImplementationPartner = <<<SQL
+
+            TRUNCATE TABLE `vlsm`.`r_implementation_partners`;
+            INSERT INTO `vlsm`.`r_implementation_partners`
+                        (
+                        `i_partner_name`,
+                        `i_partner_status`,
+                        `updated_datetime`,
+                        `data_sync`)
+            VALUES 
+
+            ('METABIOTA', 'active', NULL, 0),
+            ('ICAP DRC', 'active', NULL, 0),
+            ('ICAP', 'active', NULL, 0),
+            ('CBCHB', 'active', NULL, 0),
+            ('EGPAF', 'active', NULL, 0),
+            ('George Town University', 'active', NULL, 0);
+             
+
+            TRUNCATE TABLE `vlsm`.`r_funding_sources`;
+             INSERT INTO `vlsm`.`r_funding_sources`
+                    (
+                    `funding_source_name`,
+                    `funding_source_status`,
+                    `updated_datetime`,
+                    `data_sync`
+                    )
+             VALUES 
+                ('METABIOTA', 'active', NULL, 0),
+                    ('ICAP DRC', 'active', NULL, 0),
+                    ('ICAP', 'active', NULL, 0),
+                    ('CBCHB', 'active', NULL, 0),
+                    ('EGPAF', 'active', NULL, 0),
+                    ('George Town University', 'active', NULL, 0);
+        SQL;
+            $this->adapter->execute($addFormForCameroon);
             $this->adapter->execute($geographicalDivisions);
             $this->adapter->execute($provinces);
             $this->adapter->execute($alterTable);
@@ -7863,6 +7902,7 @@ final class PopulateDatabaseMigration extends AbstractMigration
             $this->adapter->execute($insertHealthFacilities);
             $this->adapter->execute($insertReferenceLabs);
             $this->adapter->execute($insertTestinglabs);
+            $this->adapter->execute($addImplementationPartner);
         }
    
 }
