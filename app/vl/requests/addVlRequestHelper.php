@@ -217,7 +217,7 @@ try {
 
     $vlData = array(
         'vlsm_instance_id'                      => $instanceId,
-        'vlsm_country_id'                       => $formId ?? 1,
+        'vlsm_country_id'                       => $formId ?? 9,
         'sample_reordered'                      => $_POST['sampleReordered'] ?? 'no',
         'external_sample_code'                  => $_POST['serialNo'] ?? null,
         'facility_id'                           => $_POST['fName'] ?? null,
