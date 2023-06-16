@@ -7894,6 +7894,11 @@ final class PopulateDatabaseMigration extends AbstractMigration
                     ('EGPAF', 'active', NULL, 0),
                     ('George Town University', 'active', NULL, 0);
         SQL;
+
+        $addjustmentsToFormVL = <<<SQL
+            ALTER TABLE `form_vl` CHANGE `reason_for_sample_rejection` `reason_for_sample_rejection`  VARCHAR(255) NULL DEFAULT NULL;
+            ALTER TABLE `form_vl` CHANGE `result_value_hiv_detection` `result_value_hiv_detection`   VARCHAR(255) NULL DEFAULT NULL;
+        SQL;
             $this->adapter->execute($addFormForCameroon);
             $this->adapter->execute($geographicalDivisions);
             $this->adapter->execute($provinces);
@@ -7903,6 +7908,7 @@ final class PopulateDatabaseMigration extends AbstractMigration
             $this->adapter->execute($insertReferenceLabs);
             $this->adapter->execute($insertTestinglabs);
             $this->adapter->execute($addImplementationPartner);
+            $this->adapter->execute($addjustmentsToFormVL);
         }
    
 }
