@@ -6,7 +6,7 @@ use App\Services\FacilitiesService;
 use App\Registries\ContainerRegistry;
 
 require_once APPLICATION_PATH . '/header.php';
-
+error_reporting(E_ERROR);
 /** @var UsersService $usersService */
 $usersService = ContainerRegistry::get(UsersService::class);
 

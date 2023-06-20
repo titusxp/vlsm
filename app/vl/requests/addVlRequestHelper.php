@@ -372,7 +372,8 @@ try {
 
     if ($id === true) {
         $_SESSION['alertMsg'] = _("VL request added successfully");
-        $eventType = 'add-vl-request-sudan';
+        //$eventType = 'add-vl-request-sudan';
+        $eventType = 'add-vl-request-cameroon';
         $action = $_SESSION['userName'] . ' added a new request with the sample code ' . $_POST['sampleCode'];
         $resource = 'vl-request';
 

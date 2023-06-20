@@ -18,7 +18,7 @@ $supportEmail = trim($general->getGlobalConfig('support_email'));
 <footer class="main-footer">
 
 
-	<small>This project is supported by the U.S. President's Emergency Plan for AIDS Relief (PEPFAR) through the U.S. Centers for Disease Control and Prevention (CDC).</small>
+	<small>This project is supported by the U.S. President's Emergency Plan for AIDS Relief (PEPFAR) through the U.S. Centers for Disease Control and Prevention (CDC). Cameroon Baptist Convention Health Services</small>
 	<?php if (!empty($supportEmail)) { ?>
 		<small><a href="javascript:void(0);" onclick="showModal('/support/index.php?fUrl=<?php echo htmlspecialchars($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>', 900, 520);">Support</a></small>
 	<?php } ?>

@@ -13,6 +13,7 @@ $db = ContainerRegistry::get('db');
 /** @var CommonService $general */
 $general = ContainerRegistry::get(CommonService::class);
 $syncedTypeResults = $db->rawQuery("SELECT DISTINCT request_type FROM track_api_requests ORDER BY request_type ASC");
+$syncedType = [];
 foreach ($syncedTypeResults as $synced) {
 	$syncedType[$synced['request_type']] = (str_replace("-", " ", $synced['request_type']));
 }

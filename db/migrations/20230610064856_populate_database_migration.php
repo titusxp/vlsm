@@ -16,6 +16,7 @@ final class PopulateDatabaseMigration extends AbstractMigration
             $addFormForCameroon = <<<SQL
                INSERT INTO `s_available_country_forms` (`vlsm_country_id`, `form_name`, `short_name`) VALUES (9, "Cameroon", "cameroon");
                UPDATE `global_config` SET `value` = '9' WHERE `global_config`.`name` = 'vl_form';
+               UPDATE `global_config` SET `value` = 'Africa/Douala' WHERE `global_config`.`name` = 'default_time_zone';
             SQL;
 
             $geographicalDivisions = <<<SQL
