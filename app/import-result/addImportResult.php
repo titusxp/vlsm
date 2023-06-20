@@ -29,8 +29,8 @@ $fQuery = 'SELECT * FROM facility_details as f
             INNER JOIN testing_labs as t ON t.facility_id=f.facility_id
             WHERE t.test_type = ?
                 AND f.facility_type=2
-                AND (f.facility_attributes->>"$.allow_results_file_upload" = "yes"
-                    OR f.facility_attributes->>"$.allow_results_file_upload" IS NULL)
+                -- AND (f.facility_attributes->>"$.allow_results_file_upload" = "yes"
+                    -- OR f.facility_attributes->>"$.allow_results_file_upload" IS NULL)
             ORDER BY f.facility_name ASC';
 $fResult = $db->rawQuery($fQuery, array($type));
 

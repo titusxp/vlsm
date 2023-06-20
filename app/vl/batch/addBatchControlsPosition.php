@@ -1,6 +1,8 @@
 <?php
 
 require_once APPLICATION_PATH . '/header.php';
+//Page works fine with some errors Suppressed warnings set to E_ALL if you want to debug the errors
+error_reporting(E_ERROR);
 
 // Sanitized values from $request object
 /** @var Laminas\Diactoros\ServerRequest $request */

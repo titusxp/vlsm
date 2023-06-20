@@ -5,6 +5,8 @@ require_once APPLICATION_PATH . '/header.php';
 $facilityQuery = "SELECT * FROM facility_details where facility_type = 2 AND status='active'";
 
 if (isset($_SESSION['instanceType']) && $_SESSION['instanceType'] == 'vluser') {
+
+  //TODO: Need to set sc_testing_lab_id with Lab id in the system config  table
   $labId = $sarr['sc_testing_lab_id'];
   $facilityQuery .= " AND facility_id = " . $labId;
 }

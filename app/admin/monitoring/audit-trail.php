@@ -115,7 +115,8 @@ $resultColumn = getColumns($db, $tableName);
 								</td>
 								<td>&nbsp;<strong><?php echo _("Sample Code"); ?>&nbsp;:</strong></td>
 								<td>
-									<input type="text" value="<?= htmlspecialchars($_POST['sampleCode']);  ?>" name="sampleCode" id="sampleCode" class="form-control" />
+								    <!-- <input type="text" value="<?= htmlspecialchars($_POST['sampleCode']);  ?>" name="sampleCode" id="sampleCode" class="form-control" /> -->
+									<input type="text" value="" name="sampleCode" id="sampleCode" class="form-control" />
 								</td>
 							<tr>
 								<td colspan="4">&nbsp;<input type="submit" value="<?php echo _("Submit"); ?>" class="btn btn-success btn-sm">
