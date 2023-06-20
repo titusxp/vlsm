@@ -46,6 +46,13 @@ try {
         }
         $_SESSION['alertMsg'] = _("Logo deleted successfully");
     }
+    //Add fCode to system_config table sc_testing_lab_id value
+    if (isset($_POST['fCode'])) {
+        $db = $db->where('name', 'sc_testing_lab_id');
+        $id = $db->update('system_config', array(
+            "value" => $_POST['fCode']
+        ));
+    }
 
     if (isset($_FILES['instanceLogo']['name']) && $_FILES['instanceLogo']['name'] != "") {
         if (!file_exists(UPLOAD_PATH . DIRECTORY_SEPARATOR . "instance-logo") && !is_dir(UPLOAD_PATH . DIRECTORY_SEPARATOR . "instance-logo")) {
