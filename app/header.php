@@ -37,6 +37,16 @@ $sarr = $general->getSystemConfig();
 
 $skin = "skin-blue";
 
+//set user language ID (lid) based on user local 1 for english and 2 for French 
+$_SESSION['lid'] = 1;
+if($_SESSION['userLocale'] == 'fr_FR'){
+	$_SESSION['lid'] = 2;
+
+}else {
+	$_SESSION['lid'] = 1;
+}
+$lid = $_SESSION['lid'];
+
 $logoName = "<img src='/assets/img/flask.png' style='margin-top:-5px;max-width:22px;'> <span style=''>LIS</span>";
 $smallLogoName = "<img src='/assets/img/flask.png'>";
 $systemType = _("Lab Sample Management Module");
@@ -253,7 +263,8 @@ if (isset($_SESSION['privileges']) && array_intersect($_SESSION['privileges'], a
 			width: auto;
 			overflow-y: scroll !important;
 		}
-	</style>
+		</style>
+
 </head>
 
 <body class="hold-transition <?php echo $skin; ?> sidebar-mini" id="capture">
@@ -342,7 +353,7 @@ if (isset($_SESSION['privileges']) && array_intersect($_SESSION['privileges'], a
 						<li class="treeview manage">
 							<a href="#">
 								<span class="fa-solid fa-shield"></span>
-								<span><?php echo Translation::translate("Admin"); ?></span> 
+								<span><?php echo Translation::translate("Admin"); ?></span>
 								<span class="pull-right-container">
 									<span class="fa-solid fa-angle-left pull-right"></span>
 								</span>
@@ -499,7 +510,7 @@ if (isset($_SESSION['privileges']) && array_intersect($_SESSION['privileges'], a
 												<li class="allMenu genericSampleRejectionReasonsMenu">
 													<a href="/generic-tests/reference/sample-rejection-reasons/generic-sample-rejection-reasons.php" data-inner-pages="<?= base64_encode('/generic-tests/reference/sample-rejection-reasons/generic-edit-rejection-reasons.php') . ';' . base64_encode('/generic-tests/reference/sample-rejection-reasons/generic-add-rejection-reasons.php'); ?>"><span class="fa-solid fa-caret-right"></span><?php echo Translation::translate("Sample Rejection Reasons"); ?></a>
 												</li>
-											<?php } 
+											<?php }
 											if (isset($_SESSION['privileges']) && in_array("test-type.php", $_SESSION['privileges'])) { ?>
 												<li class="allMenu testTypeConfigurationMenu">
 													<a href="/generic-tests/configuration/test-type.php" data-inner-pages="<?= base64_encode('/generic-tests/configuration/add-test-type.php') . ';' . base64_encode('/generic-tests/configuration/edit-test-type.php'); ?>"><span class="fa-solid fa-caret-right"></span><?php echo Translation::translate("Test Type Configuration"); ?></a>
@@ -777,6 +788,11 @@ if (isset($_SESSION['privileges']) && array_intersect($_SESSION['privileges'], a
 									if (isset($_SESSION['privileges']) && in_array("addVlRequest.php", $_SESSION['privileges'])) { ?>
 										<li class="allMenu addVlRequestMenu">
 											<a href="/vl/requests/addVlRequest.php"><span class="fa-solid fa-caret-right"></span> <?php echo Translation::translate("Add New Request"); ?></a>
+										</li>
+									<?php }
+									if (isset($_SESSION['privileges']) && in_array("addVlRequest.php", $_SESSION['privileges'])) { ?>
+										<li class="allMenu addVlRequestFromDAMAMenu">
+											<a href="/vl/requests/addVlRequestFromDama.php"><span class="fa-solid fa-caret-right"></span><?php echo Translation::translate("Request From DAMA"); ?></a>
 										</li>
 									<?php }
 									if (isset($_SESSION['privileges']) && in_array("addSamplesFromManifest.php", $_SESSION['privileges']) && ($_SESSION['instanceType'] != 'remoteuser')) { ?>

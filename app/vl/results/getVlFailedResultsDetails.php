@@ -5,6 +5,7 @@ use App\Services\FacilitiesService;
 use App\Registries\ContainerRegistry;
 use App\Services\CommonService;
 use App\Utilities\DateUtility;
+use App\Translation\Translation;
 
 /** @var MysqliDb $db */
 $db = ContainerRegistry::get('db');
@@ -19,6 +20,7 @@ $facilitiesService = ContainerRegistry::get(FacilitiesService::class);
 $gconfig = $general->getGlobalConfig();
 $sarr = $general->getSystemConfig();
 
+$ulid = Translation::languageId();
 $tableName = "form_vl";
 $primaryKey = "vl_sample_id";
 
@@ -127,8 +129,8 @@ $sQuery = "SELECT SQL_CALC_FOUND_ROWS
     b.batch_code
     FROM form_vl as vl
     LEFT JOIN facility_details as f ON vl.facility_id=f.facility_id
-    LEFT JOIN r_vl_sample_type as s ON s.sample_id=vl.sample_type
-    INNER JOIN r_sample_status as ts ON ts.status_id=vl.result_status
+    LEFT JOIN r_vl_sample_type as s ON s.sample_id=vl.sample_type AND s.lid = $ulid
+    INNER JOIN r_sample_status as ts ON ts.status_id=vl.result_status 
     LEFT JOIN r_vl_art_regimen as art ON vl.current_regimen=art.art_id
     LEFT JOIN r_vl_sample_rejection_reasons as rs ON rs.rejection_reason_id=vl.reason_for_sample_rejection
     LEFT JOIN r_implementation_partners as imp ON imp.i_partner_id=vl.implementing_partner

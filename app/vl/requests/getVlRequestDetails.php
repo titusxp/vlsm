@@ -4,6 +4,7 @@ use App\Services\FacilitiesService;
 use App\Registries\ContainerRegistry;
 use App\Services\CommonService;
 use App\Utilities\DateUtility;
+use App\Translation\Translation;
 
 /** @var MysqliDb $db */
 $db = ContainerRegistry::get('db');
@@ -17,7 +18,7 @@ $facilitiesService = ContainerRegistry::get(FacilitiesService::class);
 
 $barCodePrinting = $general->getGlobalConfig('bar_code_printing');
 
-
+$ulid = Translation::languageId();
 $tableName = "form_vl";
 $primaryKey = "vl_sample_id";
 
@@ -129,7 +130,7 @@ $sQuery = "SELECT SQL_CALC_FOUND_ROWS
 
                     LEFT JOIN facility_details as f ON vl.facility_id=f.facility_id
                     LEFT JOIN facility_details as l ON vl.lab_id=l.facility_id
-                    LEFT JOIN r_vl_sample_type as s ON s.sample_id=vl.sample_type
+                    LEFT JOIN r_vl_sample_type as s ON s.sample_id=vl.sample_type AND s.lid = $ulid
                     LEFT JOIN r_sample_status as ts ON ts.status_id=vl.result_status
                     LEFT JOIN batch_details as b ON b.batch_id=vl.sample_batch_id
                     LEFT JOIN r_funding_sources as fs ON fs.funding_source_id=vl.funding_source

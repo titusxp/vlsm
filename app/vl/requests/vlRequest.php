@@ -63,7 +63,7 @@ $fundingSourceList = $db->query($fundingSourceQry);
 $implementingPartnerQry = "SELECT * FROM r_implementation_partners WHERE i_partner_status='active' ORDER BY i_partner_name ASC";
 $implementingPartnerList = $db->query($implementingPartnerQry);
 
-$sQuery = "SELECT * FROM r_vl_sample_type WHERE `status`='active'";
+$sQuery = "SELECT * FROM r_vl_sample_type WHERE `status`='active' AND lid = $lid";
 $sResult = $db->rawQuery($sQuery);
 
 $batQuery = "SELECT batch_code FROM batch_details WHERE test_type = 'vl' AND batch_status='completed'";
@@ -454,8 +454,8 @@ foreach ($srcResults as $list) {
 									<th><?php echo _("Patient's Name"); ?></th>
 									<th scope="row"><?php echo _("Testing Lab"); ?></th>
 									<th scope="row"><?php echo _("Facility Name"); ?></th>
-									<th><?php echo _("Province/State"); ?></th>
-									<th><?php echo _("District/County"); ?></th>
+									<th><?php echo _("Province/Region"); ?></th>
+									<th><?php echo _("District"); ?></th>
 									<th><?php echo _("Sample Type"); ?></th>
 									<th><?php echo _("Result"); ?></th>
 									<th><?php echo _("Last Modified Date"); ?></th>

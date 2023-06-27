@@ -99,7 +99,10 @@ class UsersService
                     'add-vl-test-failure-reason.php'        => 'vl-art-code-details.php',
                     'edit-vl-test-failure-reason.php'       => 'vl-art-code-details.php',
                     'vlTestingTargetReport.php'             => 'vlMonthlyThresholdReport.php',
-                    'vlSuppressedTargetReport.php'          => 'vlMonthlyThresholdReport.php'
+                    'vlSuppressedTargetReport.php'          => 'vlMonthlyThresholdReport.php',
+                    'addVlRequestFromDama.php'              => 'addVlRequest.php',
+                    'fetchRequestDamaHelper.php'             => 'addVlRequest.php',
+                    'SaveRequestDamaHelper.php'             => 'addVlRequest.php'
                 );
 
                 $sharedPrivileges = array_merge($sharedPrivileges, $sharedVLPrivileges);

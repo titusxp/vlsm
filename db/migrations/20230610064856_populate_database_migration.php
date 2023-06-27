@@ -7900,6 +7900,134 @@ final class PopulateDatabaseMigration extends AbstractMigration
             ALTER TABLE `form_vl` CHANGE `reason_for_sample_rejection` `reason_for_sample_rejection`  VARCHAR(255) NULL DEFAULT NULL;
             ALTER TABLE `form_vl` CHANGE `result_value_hiv_detection` `result_value_hiv_detection`   VARCHAR(255) NULL DEFAULT NULL;
         SQL;
+
+        $others = <<<SQL
+             TRUNCATE TABLE `vlsm`.`r_vl_test_reasons`;
+             ALTER TABLE `r_vl_test_reasons` CHANGE `test_reason_id` `test_reason_id` INT(11) NOT NULL;
+             ALTER TABLE `r_vl_test_reasons` ADD `lid` INT(10) NOT NULL AFTER `data_sync`;
+             ALTER TABLE `r_vl_test_reasons` DROP PRIMARY KEY;
+             INSERT INTO `vlsm`.`r_vl_test_reasons`
+            (`test_reason_id`,
+             `test_reason_name`,
+             `parent_reason`,
+             `test_reason_status`,
+             `updated_datetime`,
+             `data_sync`,
+             `lid`)
+        VALUES 
+            (00,"Routine 1st test after ART Initiation", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (00,"1er test de routine après l'initiation du TARV", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (01,"Routine followup test for stable patients(Suprressed VL)", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (01,"Test de suivi de routine pour les patients stables (CV surpressée)", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (02,"Immunological failure (failure to increase CD4 despite ART of > 6 months)", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (02,"Échec immunologique (échec de l'augmentation du CD4 malgré un TARV de > 6 mois)", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (03,"Clinical failure (WHO stage 3 and 4 occurence after ART inition)", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (03,"Échec clinique (apparition aux stades 3 et 4 de l'OMS après le début du TARV)", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (04,"Not Documented", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (04,"Non documenté", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (05,"Repeat after good adherence, following enhance adherence counselling", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (05,"Répéter après une bonne adhésion, après améliorer les conseils d'adhésion", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (06,"Others", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (06,"Autres", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (07,"Primary virologic failure (detectable VL after  > 6 of ART)", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (07,"Échec virologique primaire (CV détectable après> 6 des TARV)", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (08,"Secondary virologic failure (VL rebound after a period of virological success)", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (08,"Échec virologique secondaire (rebond CV après une période de succès virologique)", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (09,"Pregnant Women", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (09,"Femmes enceintes", 0, 'active','2023-06-19 16:25:32', 0,02 ),
+            (10,"Breastfeeding Women", 0, 'active','2023-06-19 16:25:32', 0,01 ),
+            (10,"Femmes qui allaitent", 0, 'active','2023-06-19 16:25:32', 0,02 );
+            TRUNCATE TABLE `vlsm`.`r_vl_sample_type`;
+            ALTER TABLE `r_vl_sample_type` ADD `lid` INT(10) NOT NULL AFTER `data_sync`;
+            ALTER TABLE `r_vl_sample_type` CHANGE `sample_id` `sample_id` INT(11) NOT NULL;
+            ALTER TABLE `r_vl_sample_type` DROP PRIMARY KEY;
+
+            INSERT INTO `vlsm`.`r_vl_sample_type`
+                        
+                        (`sample_id`,
+                        `sample_name`,
+                        `status`,
+                        `updated_datetime`,
+                        `data_sync`,
+                        `lid`)
+            VALUES 
+                (01,"Whole blood",'active','2023-06-19 16:25:32', 0,01 ),
+                (01,"Sang total",'active','2023-06-19 16:25:32', 0,02 ),
+                (02,"DBS",'active','2023-06-19 16:25:32', 0,01 ),
+                (02,"DBS",'active','2023-06-19 16:25:32', 0,02 ),
+                (03,"Plasma",'active','2023-06-19 16:25:32', 0,01 ),
+                (03,"Plasma",'active','2023-06-19 16:25:32', 0,02 );
+
+                ALTER TABLE `r_vl_art_regimen` ADD `regime_code` VARCHAR(100) NULL AFTER `data_sync`;
+                ALTER TABLE `r_vl_art_regimen` CHANGE `art_id` `art_id` INT(11) NOT NULL;
+                ALTER TABLE `r_vl_art_regimen` DROP PRIMARY KEY;
+                TRUNCATE TABLE `vlsm`.`r_vl_art_regimen`;
+
+                INSERT INTO `vlsm`.`r_vl_art_regimen`
+            (`art_id`,
+             `art_code`,
+             `parent_art`,
+             `headings`,
+             `nation_identifier`,
+             `art_status`,
+             `updated_datetime`,
+             `data_sync`,
+             `regime_code`)
+        VALUES 
+            (51,"ABC/3TC 600 mg/300 mg + DTG 50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"7A1"),
+            (01,"TDF/FTC/EFV 300 mg/200 mg/600 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"1A"),
+            (02,"TDF/3TC/EFV  300 mg/300 mg/600 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"2A"),
+            (03,"AZT/3TC+EFV 300 mg/150 mg + 600 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"3A"),
+            (04,"AZT/3TC/NVP 300 mg/150 mg/200 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"4A"),
+            (05,"TDF/3TC+NVP 300 mg/300 mg + 200 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"5A"),
+            (06,"ABC/3TC+EFV 600 mg/300 mg + 600 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"6A"),
+            (07,"ABC/3TC+NVP 600 mg/300 mg + 200 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"7A"),
+            (08,"TDF/3TC/DTG 300 mg/300 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"8A"),
+            (09,"TDF/3TC/EFV 300 mg/300 mg/400 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"9A"),
+            (10,"AZT/3TC + ATV/r 300 mg/150 mg + 300 mg/100 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"10A"),
+            (11,"AZT/3TC + LPV/r 300 mg/150 mg + 200 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"11A"),
+            (12,"TDF/3TC+ATV/r 300 mg/300 mg + 300 mg/100 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"12A"),
+            (13,"TDF/3TC+ LPV/r 300 mg/300 mg + 200 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"13A"),
+            (14,"TDF/FTC+ ATV/r 300 mg/300 mg + 300 mg/100 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"14A"),
+            (15,"TDF/FTC+ LPV/r 300 mg/300 mg + 200 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"15A"),
+            (16,"ABC/3TC+LPV/r 120 mg/60mg + 40 mg/10 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"1E"),
+            (17,"AZT/3TC+LPV/r 60 mg/30 mg + 40 mg/10 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"2E"),
+            (18,"ABC/3TC+EFV 120 mg/60 mg + 200 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"3E"),
+            (19,"AZT/3TC+EFV 60 mg/30 mg + 200 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"4E"),
+            (20,"TDF/3TC+ EFV 300 mg/300 mg + 200 mg tab",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"5E"),
+            (21,"TDF/FTC+EFV 300 mg/200 mg + 200 mg tab",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"5E1"),
+            (22,"ABC/3TC+NVP 120 mg/60 mg + 50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"6E"),
+            (23,"AZT/3TC/NVP 60 mg/30 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"7E"),
+            (24,"TDF/3TC+NVP 300 mg/300 mg + 200 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"8E"),
+            (25,"TDF/FTC+NVP 300 mg/300 mg + 200 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"8E1"),
+            (26,"TDF/FTC+DTG 300 mg/200 mg + 50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"8E2"),
+            (27,"ABC/3TC+LPV/r 600 mg/300 mg + 200 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"9E"),
+            (28,"AZT/3TC+LPV/r 300 mg/150 mg + 200 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"10E"),
+            (29,"ABC/3TC+EFV 300 mg/150 mg + 200mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"11E"),
+            (30,"AZT/3TC+EFV 300 mg/150 mg + 200mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"11E1"),
+            (31,"ABC/3TC+ATV/r  600 mg/300 mg + 300 mg/100 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"12E"),
+            (32,"AZT/3TC+ATV/r  300 mg/150 mg + 300 mg/100 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"12E1"),
+            (33,"TDF/3TC/EFV  300 mg/300 mg/600 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"13E"),
+            (34,"TDF/3TC+LPV/r 300 mg/300 mg + 200 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"14E"),
+            (35,"TDF/3TC+ATV/r 300 mg/300 mg + 300 mg/100 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"14E1"),
+            (36,"DRV/r + DTG + ABC/3TC 600 mg/100 mg + 50 mg + 600 mg/300 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"15C"),
+            (38,"AZT/3TC + LPV/r 300 mg/150 mg + 200 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"10A1"),
+            (39,"DRV/r + DTG + TDF/3TC 600 mg/100 mg + 50 mg + 300 mg/300 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"16C"),
+            (40,"DRV/r + DTG + AZT/3TC 600 mg/100 mg + 50 mg + 600 mg/150 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"17C"),
+            (41,"DRV/r + TDF/3TC 600 mg/100 mg + 300 mg/300 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"18C"),
+            (42,"DRV/r + ABC/3TC 600 mg/100 mg + 600 mg/300 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"19C"),
+            (43,"AZT/3TC+DTG 300 mg/150 mg + 50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"4A1"),
+            (44,"TDF/3TC/DTG 300 mg/300 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"14A1"),
+            (45,"TDF/3TC/DTG 300 mg/300 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"9E1"),
+            (46,"AZT/3TC+DTG 60 mg/30 mg + 50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"10E1"),
+            (47,"ABC/3TC+DTG 120 mg/60 mg + 50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"11E2"),
+            (48,"ABC/3TC+RAL  600 mg/300 mg + 600 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"12E2"),
+            (49,"TDF/3TC/DTG 300 mg/300 mg/50 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"17E"),
+            (50,"ABC/3TC+ATV/r  600 mg/300 mg + 300 mg/100 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"14A2"),
+            (58,"ABC/3TC + 120 mg/60 mg +  DTG 10 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"11E2a"),
+            (59,"DRV/r + RAL + TDF/3TC 600 mg/100 mg + 600 mg + 600 mg/300 mg",0,NULL,'cameroon','active','2023-06-19 16:25:32', 0,"24C");
+
+        SQL;
             $this->adapter->execute($addFormForCameroon);
             $this->adapter->execute($geographicalDivisions);
             $this->adapter->execute($provinces);
@@ -7910,6 +8038,7 @@ final class PopulateDatabaseMigration extends AbstractMigration
             $this->adapter->execute($insertTestinglabs);
             $this->adapter->execute($addImplementationPartner);
             $this->adapter->execute($addjustmentsToFormVL);
+            $this->adapter->execute($others);
         }
    
 }
