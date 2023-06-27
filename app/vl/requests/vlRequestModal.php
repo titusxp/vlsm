@@ -1,7 +1,9 @@
 <?php
 
+use App\Translation\Translation;
+$ulid = Translation::languageId();
 
-$sQuery = "SELECT * FROM r_vl_sample_type";
+$sQuery = "SELECT * FROM r_vl_sample_type WHERE lid = $ulid";
 $sResult = $db->rawQuery($sQuery);
 $fQuery = "SELECT * FROM facility_details where status='active'";
 $fResult = $db->rawQuery($fQuery);

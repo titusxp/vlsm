@@ -20,7 +20,7 @@ $general = ContainerRegistry::get(CommonService::class);
 $tsQuery = "SELECT * FROM r_sample_status";
 $tsResult = $db->rawQuery($tsQuery);
 
-$sQuery = "SELECT * FROM r_vl_sample_type where status='active'";
+$sQuery = "SELECT * FROM r_vl_sample_type where status='active' AND lid = $lid";
 $sResult = $db->rawQuery($sQuery);
 
 

@@ -1,8 +1,10 @@
 <?php
+use App\Translation\Translation;
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+$ulid = Translation::languageId();
 
 $tableName = "r_vl_test_reasons";
 $primaryKey = "test_reason_id";
@@ -57,6 +59,7 @@ if (isset($_POST['iSortCol_0'])) {
         */
 
 $sWhere = [];
+$sWhere[] = "lid = $ulid";
 if (isset($_POST['sSearch']) && $_POST['sSearch'] != "") {
     $searchArray = explode(" ", $_POST['sSearch']);
     $sWhereSub = "";
@@ -94,9 +97,10 @@ for ($i = 0; $i < count($aColumns); $i++) {
 
 $sQuery = "SELECT SQL_CALC_FOUND_ROWS * FROM $tableName";
 
+
 if (isset($sWhere) && !empty($sWhere)) {
     $sWhere = ' where ' . implode(' AND ', $sWhere);
-    $sQuery = $sQuery . ' ' . $sWhere;
+    $sQuery = $sQuery . ' ' . $sWhere ;
 }
 
 if (isset($sOrder) && !empty($sOrder)) {

@@ -59,11 +59,11 @@ $statusResult = $db->rawQuery($statusQuery);
 $pdQuery = "SELECT * FROM geographical_divisions WHERE geo_parent = 0 and geo_status='active'";
 $pdResult = $db->query($pdQuery);
 
-$sQuery = "SELECT * FROM r_vl_sample_type WHERE status='active'";
+$sQuery = "SELECT * FROM r_vl_sample_type WHERE status='active' AND lid = $lid";
 $sResult = $db->query($sQuery);
 
 //get vl test reason list
-$vlTestReasonQuery = "SELECT * FROM r_vl_test_reasons WHERE test_reason_status = 'active'";
+$vlTestReasonQuery = "SELECT * FROM r_vl_test_reasons WHERE test_reason_status = 'active' AND lid = $lid";
 $vlTestReasonResult = $db->query($vlTestReasonQuery);
 
 //get suspected treatment failure at

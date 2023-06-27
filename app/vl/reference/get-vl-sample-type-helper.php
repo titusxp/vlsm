@@ -1,9 +1,10 @@
 <?php
+use App\Translation\Translation;
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-
+$ulid = Translation::languageId();
 $tableName = "r_vl_sample_type";
 $primaryKey = "sample_id";
 //system config
@@ -99,6 +100,7 @@ for ($i = 0; $i < count($aColumns); $i++) {
 $sQuery = "SELECT * FROM $tableName";
 
 if (isset($sWhere) && !empty($sWhere)) {
+ 
     $sWhere = ' where ' . $sWhere;
     $sQuery = $sQuery . ' ' . $sWhere;
 }
@@ -117,7 +119,7 @@ $rResult = $db->rawQuery($sQuery);
 // print_r($rResult);
 /* Data set length after filtering */
 
-$aResultFilterTotal = $db->rawQuery("SELECT * FROM $tableName $sWhere order by $sOrder");
+$aResultFilterTotal = $db->rawQuery("SELECT * FROM $tableName $sWhere  order by $sOrder");
 $iFilteredTotal = count($aResultFilterTotal);
 
 /* Total data set length */

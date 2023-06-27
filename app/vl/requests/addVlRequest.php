@@ -44,7 +44,7 @@ $rejectionTypeQuery = "SELECT DISTINCT rejection_type FROM r_vl_sample_rejection
 $rejectionTypeResult = $db->rawQuery($rejectionTypeQuery);
 
 //get active sample types
-$condition = "status = 'active'";
+$condition = "status = 'active' AND lid = $lid";
 $sResult = $general->fetchDataFromTable('r_vl_sample_type', $condition);
 
 

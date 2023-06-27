@@ -50,7 +50,7 @@ $query = "SELECT vl.sample_code,vl.sample_batch_id,vl.vl_sample_id,vl.facility_i
 $result = $db->rawQuery($query);
 $result = array_merge($batchResultresult, $result);
 
-$sQuery = "SELECT * FROM r_vl_sample_type where status='active'";
+$sQuery = "SELECT * FROM r_vl_sample_type where status='active' AND lid = $lid";
 $sResult = $db->rawQuery($sQuery);
 //Get active machines
 $testPlatformResult = $general->getTestingPlatforms('vl');

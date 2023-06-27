@@ -4,6 +4,7 @@ use App\Services\FacilitiesService;
 use App\Registries\ContainerRegistry;
 use App\Services\CommonService;
 use App\Utilities\DateUtility;
+use App\Translation\Translation;
 
 if (session_status() == PHP_SESSION_NONE) {
      session_start();
@@ -21,7 +22,7 @@ $sarr = $general->getSystemConfig();
 /** @var FacilitiesService $facilitiesService */
 $facilitiesService = ContainerRegistry::get(FacilitiesService::class);
 
-
+$ulid = Translation::languageId();
 $tableName = "form_vl";
 $primaryKey = "vl_sample_id";
 
@@ -160,7 +161,7 @@ FROM form_vl as vl
 LEFT JOIN facility_details as f ON vl.facility_id=f.facility_id
 LEFT JOIN batch_details as b ON b.batch_id=vl.sample_batch_id
 LEFT JOIN facility_details as testingLab ON vl.lab_id=testingLab.facility_id
-LEFT JOIN r_vl_sample_type as s ON s.sample_id=vl.sample_type
+LEFT JOIN r_vl_sample_type as s ON s.sample_id=vl.sample_type  AND s.lid = $ulid
 INNER JOIN r_sample_status as ts ON ts.status_id=vl.result_status ";
 
 
