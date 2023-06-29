@@ -1,5 +1,4 @@
 <?php
-//error_reporting(0);
 $title = _("VL | Import VL Request From DAMA");
 error_reporting(E_ALL);
 require_once APPLICATION_PATH . '/header.php';
@@ -90,23 +89,23 @@ require_once APPLICATION_PATH . '/header.php';
 						</b>
 					</td>
 					<td>
-						<label for="startDate" class="form-control"><?php echo _("Fetch From") ?></label>
-						<input type="datetime-local" id="startDate" name="startDate" class="form-control">
-
+						<div id="advanceOption">
+							<label for="startDate" class="form-control"><?php echo _("Select Date and Time") ?></label>
+							<input type="datetime-local" id="startDate" name="startDate" class="form-control">
+						</div>
 					</td>
-					<td>
+					<!-- <td>
 						<label for="endDate" class="form-control"><?php echo _("To") ?></label>
 						<input type="datetime-local" id="endDate" name="endDate" class="form-control">
-					</td>
+					</td> -->
 
 					<td>
-						<div class="div-container">
-							<button class="btn btn-primary btn-sm pull-right" style="margin-right:5px;" id="fetchButton"><?php echo _("Fetch Request From Dama") ?></button>
-						</div>
+						<button class="btn btn-primary btn-sm pull-right" style="margin-right:5px;" id="fetchButton"><?php echo _("Fetch Request From Dama") ?></button>
+						<button class="btn btn-primary btn-sm pull-right" style="margin-right:5px;" id="advanceOptionButton"></button>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="5"><?php echo _("You can specify a range for the data load. If you don't specify a load range we'll load everything starting from the last load date.On save we'll retain only new request to avoid duplicates.") ?> </td>
+					<td colspan="5"><?php echo _("You can specify a date to start loading from by clicking on Advanced option. If you don't specify a load range we'll load everything starting from the last load date.") ?> </td>
 				</tr>
 			</table>
 		</div>
@@ -117,7 +116,6 @@ require_once APPLICATION_PATH . '/header.php';
 						<tr>
 							<th>DAMA ID</th>
 							<th>PRESCRIBER NAME</th>
-							<!-- <th>SITE CODE</th> -->
 							<th>SAMPLE COLLECTION DATE</th>
 							<th>DATE SENT TO LAB</th>
 							<th>ART CODE</th>
@@ -135,33 +133,55 @@ require_once APPLICATION_PATH . '/header.php';
 		</div>
 
 		<button class="btn btn-success btn-sm pull-right" id="saveButton" style="display: none;"><?php echo _("Save Data To VLSM") ?></button>
-
+	</section>
 </div>
 <script type="text/javascript" src="/assets/js/moment.min.js"></script>
 <script>
 	$(document).ready(function() {
-
 		var data;
+		var showAdvanced = false;
+		var startDate;
+		getLastDate();
+		$('#advanceOption').hide();
+		$('#advanceOptionButton').text('<?php echo _("Show Advanced Option") ?>').removeClass('btn-danger').addClass('btn-primary');
 
-
+		function getLastDate() {
+			$.ajax({
+				url: 'getLastDamaRequestDate.php',
+				type: 'POST',
+				success: function(response) {
+					startDate = response;
+					//console.log(response);
+				},
+				error: function() {
+					//console.log('Error fetching last request date');
+				}
+			});
+		}
 		$('#fetchButton').click(function() {
 			$('#loader').show();
 			$('#notification').hide();
-			var startDate = $('#startDate').val().toString().replace("T", " ");
-			var endDate = $('#endDate').val().toString().replace("T", " ");
+			_startDate = $('#startDate').val().toString().replace("T", " ");
+			if (_startDate == "") {
+				getLastDate();
+				startDate = startDate;
+			} else {
+				startDate = _startDate;
+			}
+			//var endDate = $('#endDate').val().toString().replace("T", " ");
 			$.ajax({
 				url: 'fetchRequestDamaHelper.php',
 				type: 'POST',
 				data: {
 					startDate: startDate,
-					endDate: endDate
+					//endDate: endDate
 				},
 
 				success: function(response) {
 					$('#loader').hide();
 					$('#dataTable').show();
 					$('#saveButton').show();
-					alert("Data was successfully retrieved, proceed to view..");
+					alert("Data was successfully retrieved, proceed to view.");
 
 					data = response;
 					var tbody = $('#dataTable tbody');
@@ -171,7 +191,6 @@ require_once APPLICATION_PATH . '/header.php';
 						var row = $('<tr></tr>');
 						row.append('<td>' + data[i].Id + '</td>');
 						row.append('<td>' + data[i].PrescriberName + '</td>');
-						//row.append('<td>' + data[i].SiteCode + '</td>');
 						row.append('<td>' + data[i].SampleCollectionDate + '</td>');
 						row.append('<td>' + data[i].DateSentToLab + '</td>');
 						row.append('<td>' + data[i].ExistingARTCode + '</td>')
@@ -179,7 +198,7 @@ require_once APPLICATION_PATH . '/header.php';
 						row.append('<td>' + data[i].Sex + '</td>')
 						row.append('<td>' + data[i].BirthDate + '</td>');
 						row.append('<td>' + data[i].IsPregnant + '</td>');
-						
+
 						// Add more table columns as per  data
 
 						tbody.append(row);
@@ -187,7 +206,7 @@ require_once APPLICATION_PATH . '/header.php';
 				},
 				error: function() {
 					$('#loader').hide();
-					alert('Error fetching data from DAMA. Request was rejected or no internet connection, please refresh your browser and try again. If your internet connection is fine please contact the system administrator');
+					alert('Error fetching data from DAMA. Request was rejected or no internet connection.');
 					//console.log(response);
 				}
 			});
@@ -211,7 +230,7 @@ require_once APPLICATION_PATH . '/header.php';
 						alert("Saved to vsml successfully.");
 
 					} else {
-						$('#notification').text('Opps You are trying to save request which already exist. Note we saved all new request and ignored request which already exist.').removeClass('success').addClass('error').show();
+						$('#notification').text('Opps You are trying to save request which already exist. Note we saved all new request and ignore request which already exist.').removeClass('success').addClass('error').show();
 					}
 				},
 				error: function(xhr, status, error) {
@@ -221,6 +240,16 @@ require_once APPLICATION_PATH . '/header.php';
 
 				}
 			});
+		});
+		$('#advanceOptionButton').click(function() {
+			showAdvanced = !showAdvanced;
+			if (showAdvanced) {
+				$('#advanceOption').show();
+				$('#advanceOptionButton').text('<?php echo _("Hide Advanced Option") ?>').removeClass('btn-primary').addClass('btn-danger');
+			} else {
+				$('#advanceOption').hide();
+				$('#advanceOptionButton').text('<?php echo _("Show Advanced Option") ?>').removeClass('btn-danger').addClass('btn-primary');
+			}
 		});
 
 	});

@@ -31,7 +31,7 @@ $request = $GLOBALS['request'];
 $_GET = $request->getQueryParams();
 $id = (isset($_GET['id'])) ? base64_decode($_GET['id']) : null;
 
-//Page works fine with some errors Suppressed warnings set to E_ALL if you want to debug the errors
+
 error_reporting(E_ERROR);
 
 
