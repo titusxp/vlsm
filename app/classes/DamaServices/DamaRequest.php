@@ -7,15 +7,15 @@ class DamaRequest
     private $facilityCode;
     private $password;
     private $startDate;
-    private $endDate;
+    //private $endDate;
 
-    public function __construct($apiUrl, $facilityCode, $password, $startDate, $endDate)
+    public function __construct($apiUrl, $facilityCode, $password, $startDate)
     {
         $this->apiUrl = $apiUrl;
         $this->facilityCode = $facilityCode;
         $this->password = $password;
         $this->startDate = $startDate;
-        $this->endDate = $endDate;
+        //$this->endDate = $endDate;
     }
 
     public function fetchData()
@@ -24,7 +24,7 @@ class DamaRequest
             'facilityCode' => $this->facilityCode,
             'password' => $this->password,
             'startDate' => $this->startDate,
-            'endDate' => $this->endDate
+            //'endDate' => $this->endDate
         );
 
         $ch = curl_init($this->apiUrl);

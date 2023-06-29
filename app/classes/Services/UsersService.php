@@ -84,6 +84,7 @@ class UsersService
                 $sharedVLPrivileges = array(
                     'updateVlTestResult.php'                => 'vlTestResult.php',
                     'vl-failed-results.php'                 => 'vlTestResult.php',
+                    'uploadVlResultToDama.php'              => 'vlTestResult.php',
                     'add-vl-art-code-details.php'           => 'vl-art-code-details.php',
                     'edit-vl-art-code-details.php'          => 'vl-art-code-details.php',
                     'vl-sample-rejection-reasons.php'       => 'vl-art-code-details.php',
@@ -101,7 +102,7 @@ class UsersService
                     'vlTestingTargetReport.php'             => 'vlMonthlyThresholdReport.php',
                     'vlSuppressedTargetReport.php'          => 'vlMonthlyThresholdReport.php',
                     'addVlRequestFromDama.php'              => 'addVlRequest.php',
-                    'fetchRequestDamaHelper.php'             => 'addVlRequest.php',
+                    'fetchRequestDamaHelper.php'            => 'addVlRequest.php',
                     'SaveRequestDamaHelper.php'             => 'addVlRequest.php'
                 );
 

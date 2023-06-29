@@ -829,6 +829,7 @@ if (isset($_SESSION['privileges']) && array_intersect($_SESSION['privileges'], a
 									<?php }
 									if (isset($_SESSION['privileges']) && in_array("vlTestResult.php", $_SESSION['privileges'])) { ?>
 										<li class="allMenu vlTestResultMenu"><a href="/vl/results/vlTestResult.php" data-inner-pages="<?= base64_encode('/vl/results/updateVlTestResult.php'); ?>"><span class="fa-solid fa-caret-right"></span> <?php echo Translation::translate("Enter Result Manually"); ?></a></li>
+										<li class="allMenu vlResultsToDamaMenu"><a href="/vl/results/uploadVlResultToDama.php"><span class="fa-solid fa-caret-right"></span> <?php echo Translation::translate("Upload Results To Dama"); ?></a></li>
 										<li class="allMenu vlFailedResultMenu"><a href="/vl/results/vl-failed-results.php"><span class="fa-solid fa-caret-right"></span> <?php echo Translation::translate("Failed/Hold Samples"); ?></a></li>
 									<?php }
 									if (isset($_SESSION['privileges']) && in_array("vlResultApproval.php", $_SESSION['privileges'])) { ?>
