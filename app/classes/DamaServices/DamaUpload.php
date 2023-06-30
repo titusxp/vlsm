@@ -15,9 +15,8 @@ function __construct($url, $data){
 
 
 function upload(){
-    $jsonData = json_encode($this->data);
-
-
+    $jsonData = $this->data;
+    
     $ch = curl_init($this->url);
     
     curl_setopt($ch, CURLOPT_POST, true);
