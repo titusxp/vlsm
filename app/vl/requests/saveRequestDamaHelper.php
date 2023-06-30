@@ -168,7 +168,8 @@ function saveDataToDatabase($data, $db, $instanceId, $formId)
                 'manual_result_entry'                   => 'yes',
                 'source_of_request'                     => 'dama',
                 'remote_sample'                         => 'yes',
-                'request_imported_datetime'             => DateUtility::getCurrentDateTime()
+                'request_imported_datetime'             => DateUtility::getCurrentDateTime(),
+
                 
             );
             $response = $db->insert("form_vl", $vlData);

@@ -141,7 +141,7 @@ require_once APPLICATION_PATH . '/header.php';
 		var data;
 		var showAdvanced = false;
 		var startDate;
-		getLastDate();
+		getLastDate(); //Get last fetch date based on last inserted row from dama on form_vlsm by default on page loads
 		$('#advanceOption').hide();
 		$('#advanceOptionButton').text('<?php echo _("Show Advanced Option") ?>').removeClass('btn-danger').addClass('btn-primary');
 
@@ -151,10 +151,9 @@ require_once APPLICATION_PATH . '/header.php';
 				type: 'POST',
 				success: function(response) {
 					startDate = response;
-					//console.log(response);
 				},
 				error: function() {
-					//console.log('Error fetching last request date');
+					alert('Error fetching last request date');
 				}
 			});
 		}
@@ -182,12 +181,12 @@ require_once APPLICATION_PATH . '/header.php';
 					$('#dataTable').show();
 					$('#saveButton').show();
 					alert("Data was successfully retrieved, proceed to view.");
-
+                    
 					data = response;
 					var tbody = $('#dataTable tbody');
 					tbody.empty();
 
-					for (var i = 0; i < data.length; i++) {
+					for (var i = 0; i < data.length; i++) {	
 						var row = $('<tr></tr>');
 						row.append('<td>' + data[i].Id + '</td>');
 						row.append('<td>' + data[i].PrescriberName + '</td>');
