@@ -12,7 +12,7 @@ $startDate = $_POST['startDate'] ?? null;
 
 
 $query = "";
-$queryOne = "SELECT * FROM form_vl WHERE source_of_request = 'dama' AND data_sync  = '0' AND result_status = 7 || result_status = 4";
+$queryOne = "SELECT * FROM form_vl WHERE source_of_request = 'dama' AND data_sync  = '0'";
 $queryTwo = "SELECT * FROM form_vl  WHERE source_of_request = 'dama' AND result_approved_datetime > '$startDate'";
 
 if ($startDate == null) {
