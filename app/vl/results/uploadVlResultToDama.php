@@ -127,7 +127,7 @@ require_once APPLICATION_PATH . '/header.php';
 <script type="text/javascript" src="/assets/js/moment.min.js"></script>
 <script>
     $(document).ready(function() {
-        var rawData;
+        var rawJson;
         var startDate;
         var showAdvanced = false;
         var savedSampleIds = [];
@@ -140,12 +140,12 @@ require_once APPLICATION_PATH . '/header.php';
                 url: 'uploadVlResultDamaHelper.php',
                 type: 'POST',
                 data: {
-                    data: rawData
+                    data: rawJson
                 },
                 success: function(response) {
                     var value = JSON.parse(response);
                     if (value.message == 'success') {
-                        if (savedSampleIds = []) {
+                        if (savedSampleIds.length == 0) {
                             $('#loader').hide();
                             alert("No data to save");
                         } else {
@@ -178,16 +178,9 @@ require_once APPLICATION_PATH . '/header.php';
                 },
                 success: function(response) {
                     $('#loader').hide();
-
-
-                    console.log(response);
-
-
-
-                    var data = JSON.parse(response);
-                    rawData = response;
-                    console.log(data);
-                    console.log(rawData);
+                    //console.log(response);
+                    var parsedJson = JSON.parse(response);
+                    rawJson = response;
 
                     $('#loader').hide();
                     $('#dataTable').show();
@@ -197,17 +190,15 @@ require_once APPLICATION_PATH . '/header.php';
                     var tbody = $('#dataTable tbody');
                     tbody.empty();
 
-                    for (var i = 0; i < data.length; i++) {
+                    for (var i = 0; i < parsedJson.length; i++) {
                         var row = $('<tr></tr>');
-                        row.append('<td>' + data[i].vl_sample_id + '</td>');
-                        row.append('<td>' + data[i].Id + '</td>');
-                        row.append('<td>' + data[i].patient_art_no + '</td>');
-
+                        row.append('<td>' + parsedJson[i].vl_sample_id + '</td>');
+                        row.append('<td>' + parsedJson[i].Id + '</td>');
+                        row.append('<td>' + parsedJson[i].patient_art_no + '</td>');
                         // Add more table columns as per  data
 
                         tbody.append(row);
-                        savedSampleIds.push(data[i].vl_sample_id);
-
+                        savedSampleIds.push(parsedJson[i].vl_sample_id);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -228,7 +219,6 @@ require_once APPLICATION_PATH . '/header.php';
         });
 
         function updateUploadStatus() {
-            console.log(savedSampleIds);
             $.ajax({
                 url: 'updateDamaUploadStatus.php',
                 type: 'POST',
@@ -237,7 +227,6 @@ require_once APPLICATION_PATH . '/header.php';
                 },
                 success: function(response) {
                     $('#loader').hide();
-                    alert(response);
                     if (response = "1") {
                         alert('Data saved successfully to Dama');
                     } else {

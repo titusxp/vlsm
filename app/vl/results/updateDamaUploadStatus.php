@@ -9,7 +9,7 @@ $db = ContainerRegistry::get('db');
 $vlSampleIdList = $_POST['savedSampleIds'];
 $result = 0;
 
-if($vlSampleIdList != null){
+if($vlSampleIdList != [] || ''){
 
     $colums = array();
     $colums['data_sync'] = 1;
