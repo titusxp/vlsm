@@ -230,7 +230,7 @@ if ($isGeneXpert === true && !empty($vlQueryInfo['result_value_hiv_detection']) 
 								</div>
 								<div class="col-xs-3 col-md-3">
 									<div class="form-group">
-										<label for="district">County <span class="mandatory">*</span></label>
+										<label for="district">District <span class="mandatory">*</span></label>
 										<select class="form-control" name="district" id="district" title="Please choose county" <?php echo $disable; ?> style="width:100%;" onchange="getfacilityDistrictwise(this);">
 											<option value=""> -- Select -- </option>
 											<?php

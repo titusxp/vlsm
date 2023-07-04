@@ -218,7 +218,8 @@ class Translation
             'Password must be at least 12 characters long and must include AT LEAST one number, one alphabet and may have special characters.' => [
                 'en_US' => 'Password must be at least 12 characters long and must include AT LEAST one number, one alphabet and may have special characters.',
                 'fr_FR' => 'Le mot de passe doit comporter au moins 12 caractères et doit inclure AU MOINS un chiffre, un alphabet et peut avoir des caractères spéciaux.'
-            ]
+            ],
+            
 
         ];
         $locale = isset($_SESSION['userLocale']) ? $_SESSION['userLocale'] : 'en_US';

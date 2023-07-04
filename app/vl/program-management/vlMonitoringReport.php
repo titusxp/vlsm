@@ -209,9 +209,9 @@ $state = $geolocationService->getProvinces("yes");
 						</tr>
 						<tr>
 
-							<td><strong><?php echo _("District/County"); ?> :</strong></td>
+							<td><strong><?php echo _("District"); ?> :</strong></td>
 							<td>
-								<select name="district" id="district" class="form-control" title="<?php echo _('Please choose District/County'); ?>" onchange="getByDistrict(this.value)" onkeyup="searchVlRequestData()">
+								<select name="district" id="district" class="form-control" title="<?php echo _('Please choose District'); ?>" onchange="getByDistrict(this.value)" onkeyup="searchVlRequestData()">
 								</select>
 							</td>
 							<td><strong><?php echo _("Lab Name"); ?> :</strong></td>
@@ -246,7 +246,7 @@ $state = $geolocationService->getProvinces("yes");
 									<th><?php echo _("Patient's Name"); ?></th>
 									<th scope="row"><?php echo _("Facility Name"); ?></th>
 									<th><?php echo _("Province/State/Region"); ?></th>
-									<th><?php echo _("District/County"); ?></th>
+									<th><?php echo _("District"); ?></th>
 									<th><?php echo _("Sample Type"); ?></th>
 									<th><?php echo _("Result"); ?></th>
 									<th scope="row"><?php echo _("Status"); ?></th>
