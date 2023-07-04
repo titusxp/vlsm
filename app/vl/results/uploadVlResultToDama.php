@@ -7,16 +7,11 @@ require_once APPLICATION_PATH . '/header.php';
 <style>
     .table-container {
         height: 275px;
-        width: 1250px;
         padding: 20px;
         margin: 10px;
         overflow-x: auto;
+        overflow-y: auto;
 
-    }
-
-    .div-container {
-        margin-left: 20px;
-        margin-right: 20px;
     }
 
     table {
@@ -39,7 +34,8 @@ require_once APPLICATION_PATH . '/header.php';
     }
 
     th {
-        background-color: white;
+        background-color: #3C8DBC;
+        color: #ffffff;
         font-weight: bold;
     }
 
@@ -53,10 +49,6 @@ require_once APPLICATION_PATH . '/header.php';
 
     tbody tr:hover {
         background-color: #f9f9f9;
-    }
-
-    th {
-        background-color: #F3F6FC;
     }
 
     .success {
@@ -78,14 +70,13 @@ require_once APPLICATION_PATH . '/header.php';
     </section>
     <section class="content">
         <div class="row">
+            <div id="loader" style="display: none;" class="dataTables_empty">
+                <h4><b><?php echo _("Loading your request please wait...") ?></b></h4>
+            </div>
             <table>
                 <tr>
                     <td>
-                        <div id="loader" style="display: none;">
-                            <h4><b><?php echo _("Loading your request please wait...") ?></b></h4>
-                        </div>
-                    </td>
-                    <td><b>
+                        <b>
                             <div id="notification" style="display: none;"></div>
                         </b>
                     </td>
@@ -110,9 +101,10 @@ require_once APPLICATION_PATH . '/header.php';
                 <table id="dataTable" style="display: none;" border=1>
                     <thead class>
                         <tr>
-                            <th>VL SAMPLE ID</th>
-                            <th>DAMA ID</th>
-                            <th>PATIENT ART NUMBER</th>
+                            <th><?php echo _("VL SAMPLE ID") ?></th>
+                            <th><?php echo _("DAMA ID") ?></th>
+                            <th><?php echo _("TEST PLATFORM") ?></th>
+                            <th><?php echo _("SAMPLE TESTING DATE") ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,32 +127,33 @@ require_once APPLICATION_PATH . '/header.php';
         $('#advanceOptionButton').text('<?php echo _("Show Advanced Option") ?>').removeClass('btn-danger').addClass('btn-primary');
 
         $('#saveButton').click(function() {
-            $('#loader').show();
-            $.ajax({
-                url: 'uploadVlResultDamaHelper.php',
-                type: 'POST',
-                data: {
-                    data: rawJson
-                },
-                success: function(response) {
-                    var value = JSON.parse(response);
-                    if (value.message == 'success') {
-                        if (savedSampleIds.length == 0) {
-                            $('#loader').hide();
-                            alert("No data to save");
-                        } else {
+            if (savedSampleIds.length == 0) {
+                $('#loader').hide();
+                alert("No data to save");
+            } else {
+                console.log(rawJson);
+                $('#loader').show();
+                $.ajax({
+                    url: 'uploadVlResultDamaHelper.php',
+                    type: 'POST',
+                    data: {
+                        data: rawJson
+                    },
+                    success: function(response) {
+                        var value = JSON.parse(response);
+                        if (value.message == 'success') {
                             updateUploadStatus();
+                        } else {
+                            $('#loader').hide();
+                            alert("Data not saved to Dama");
                         }
-                    } else {
+                    },
+                    error: function(xhr, status, error) {
                         $('#loader').hide();
-                        alert("Data not saved in Dama: " + value.message);
+                        alert('Error  ');
                     }
-                },
-                error: function(xhr, status, error) {
-                    $('#loader').hide();
-                    alert('Error  ');
-                }
-            });
+                });
+            }
         });
         $('#fetchButton').click(function() {
             $('#loader').show();
@@ -193,8 +186,9 @@ require_once APPLICATION_PATH . '/header.php';
                     for (var i = 0; i < parsedJson.length; i++) {
                         var row = $('<tr></tr>');
                         row.append('<td>' + parsedJson[i].vl_sample_id + '</td>');
-                        row.append('<td>' + parsedJson[i].Id + '</td>');
-                        row.append('<td>' + parsedJson[i].patient_art_no + '</td>');
+                        row.append('<td>' + parsedJson[i].unique_id + '</td>');
+                        row.append('<td>' + parsedJson[i].vl_test_platform + '</td>');
+                        row.append('<td>' + parsedJson[i].sample_testing_date + '</td>');
                         // Add more table columns as per  data
 
                         tbody.append(row);
@@ -228,9 +222,9 @@ require_once APPLICATION_PATH . '/header.php';
                 success: function(response) {
                     $('#loader').hide();
                     if (response = "1") {
-                        alert('Data saved successfully to Dama');
+                        alert('Data saved successfully to Dama and updated in vlsm ');
                     } else {
-                        alert('Data not Update in vlsm');
+                        alert('Data not updated in vlsm');
                     }
                 },
                 error: function() {

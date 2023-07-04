@@ -62,13 +62,13 @@ $state = $geolocationService->getProvinces("yes");
                             <td>
                                 <input type="text" id="sampleCollectionDate" name="sampleCollectionDate" class="form-control" placeholder="<?php echo _('Select Collection Date'); ?>" readonly style="background:#fff;" />
                             </td>
-                            <td><strong><?php echo _("Province/State"); ?>&nbsp;:</strong></td>
+                            <td><strong><?php echo _("Region"); ?>&nbsp;:</strong></td>
                             <td>
                                 <select class="form-control select2-element" id="state" onchange="getByProvince(this.value)" name="state" title="<?php echo _('Please select Province/State'); ?>">
                                     <?= $general->generateSelectOptions($state, null, _("-- Select --")); ?>
                                 </select>
                             </td>
-                            <td><strong><?php echo _("District/County"); ?> :</strong></td>
+                            <td><strong><?php echo _("District"); ?> :</strong></td>
                             <td>
                                 <select class="form-control select2-element" id="district" name="district" title="<?php echo _('Please select Province/State'); ?>" onchange="getByDistrict(this.value		)">
                                 </select>
@@ -168,10 +168,10 @@ $state = $geolocationService->getProvinces("yes");
                                     <input type="checkbox" onclick="fnShowHide(this.value);" value="<?php echo $i = $i + 1; ?>" id="iCol<?php echo $i; ?>" data-showhide="facility_name" class="showhideCheckBox" /> <label for="iCol<?php echo $i; ?>"><?php echo _("Facility Name"); ?></label>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="checkbox" onclick="fnShowHide(this.value);" value="<?php echo $i = $i + 1; ?>" id="iCol<?php echo $i; ?>" data-showhide="state" class="showhideCheckBox" /> <label for="iCol<?php echo $i; ?>"><?php echo _("Province/State"); ?></label>
+                                    <input type="checkbox" onclick="fnShowHide(this.value);" value="<?php echo $i = $i + 1; ?>" id="iCol<?php echo $i; ?>" data-showhide="state" class="showhideCheckBox" /> <label for="iCol<?php echo $i; ?>"><?php echo _("Region"); ?></label>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="checkbox" onclick="fnShowHide(this.value);" value="<?php echo $i = $i + 1; ?>" id="iCol<?php echo $i; ?>" data-showhide="district" class="showhideCheckBox" /> <label for="iCol<?php echo $i; ?>"><?php echo _("District/County"); ?></label>
+                                    <input type="checkbox" onclick="fnShowHide(this.value);" value="<?php echo $i = $i + 1; ?>" id="iCol<?php echo $i; ?>" data-showhide="district" class="showhideCheckBox" /> <label for="iCol<?php echo $i; ?>"><?php echo _("District"); ?></label>
                                 </div>
                                 <div class="col-md-3">
                                     <input type="checkbox" onclick="fnShowHide(this.value);" value="<?php echo $i = $i + 1; ?>" id="iCol<?php echo $i; ?>" data-showhide="sample_name" class="showhideCheckBox" /> <label for="iCol<?php echo $i; ?>"><?php echo _("Sample Type"); ?></label>
@@ -204,8 +204,8 @@ $state = $geolocationService->getProvinces("yes");
                                     <th><?php echo _("Unique ART No"); ?></th>
                                     <th><?php echo _("Patient's Name"); ?></th>
                                     <th scope="row"><?php echo _("Facility Name"); ?></th>
-                                    <th><?php echo _("Province/State"); ?></th>
-                                    <th><?php echo _("District/County"); ?></th>
+                                    <th><?php echo _("Region"); ?></th>
+                                    <th><?php echo _("District"); ?></th>
                                     <th><?php echo _("Sample Type"); ?></th>
                                     <th><?php echo _("Result"); ?></th>
                                     <th><?php echo _("Last Modified Date"); ?></th>

@@ -6,16 +6,11 @@ require_once APPLICATION_PATH . '/header.php';
 <style>
 	.table-container {
 		height: 275px;
-		width: 1250px;
 		padding: 20px;
 		margin: 10px;
 		overflow-x: auto;
+		overflow-y: auto;
 
-	}
-
-	.div-container {
-		margin-left: 20px;
-		margin-right: 20px;
 	}
 
 	table {
@@ -38,7 +33,8 @@ require_once APPLICATION_PATH . '/header.php';
 	}
 
 	th {
-		background-color: white;
+		background-color: #3C8DBC;
+		color: #ffffff;
 		font-weight: bold;
 	}
 
@@ -52,10 +48,6 @@ require_once APPLICATION_PATH . '/header.php';
 
 	tbody tr:hover {
 		background-color: #f9f9f9;
-	}
-
-	th {
-		background-color: #F3F6FC;
 	}
 
 	.success {
@@ -77,16 +69,13 @@ require_once APPLICATION_PATH . '/header.php';
 	</section>
 	<section class="content">
 		<div class="row">
+			<div id="loader" style="display: none;" class="dataTables_empty">
+				<h4><b><?php echo _("Loading your request please wait...") ?></b></h4>
+			</div>
 			<table>
 				<tr>
 					<td>
-						<div id="loader" style="display: none;">
-							<h4><b><?php echo _("Loading your request please wait...") ?></b></h4>
-						</div>
-					</td>
-					<td><b>
-							<div id="notification" style="display: none;"></div>
-						</b>
+						<b><div id="notification" style="display: none;"></div></b>
 					</td>
 					<td>
 						<div id="advanceOption">
@@ -114,15 +103,15 @@ require_once APPLICATION_PATH . '/header.php';
 				<table id="dataTable" style="display: none;" border=1>
 					<thead class>
 						<tr>
-							<th>DAMA ID</th>
-							<th>PRESCRIBER NAME</th>
-							<th>SAMPLE COLLECTION DATE</th>
-							<th>DATE SENT TO LAB</th>
-							<th>ART CODE</th>
-							<th>SAMPLE COLLECTOR NAME</th>
-							<th>SEX</th>
-							<th>BIRTH DATE</th>
-							<th>PREGNANT</th>
+							<th><?php echo _("DAMA ID") ?></th>
+							<th><?php echo _("PRESCRIBER NAME") ?></th>
+							<th><?php echo _("SAMPLE COLLECTION DATE") ?></th>
+							<th><?php echo _("DATE SENT TO LAB") ?></th>
+							<th><?php echo _("ART CODE") ?></th>
+							<th><?php echo _("SAMPLE COLLECTOR NAME") ?></th>
+							<th><?php echo _("SEX") ?></th>
+							<th><?php echo _("BIRTH DATE") ?></th>
+							<th><?php echo _("PREGNANT") ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -131,8 +120,7 @@ require_once APPLICATION_PATH . '/header.php';
 				</table>
 			</div>
 		</div>
-
-		<button class="btn btn-success btn-sm pull-right" id="saveButton" style="display: none;"><?php echo _("Save Data To VLSM") ?></button>
+		<button class="btn btn-success btn-sm pull-right" id="saveButton" style="display: none; "><?php echo _("Save Data To VLSM") ?></button>
 	</section>
 </div>
 <script type="text/javascript" src="/assets/js/moment.min.js"></script>
@@ -181,12 +169,12 @@ require_once APPLICATION_PATH . '/header.php';
 					$('#dataTable').show();
 					$('#saveButton').show();
 					alert("Data was successfully retrieved, proceed to view.");
-                    
+
 					data = response;
 					var tbody = $('#dataTable tbody');
 					tbody.empty();
 
-					for (var i = 0; i < data.length; i++) {	
+					for (var i = 0; i < data.length; i++) {
 						var row = $('<tr></tr>');
 						row.append('<td>' + data[i].Id + '</td>');
 						row.append('<td>' + data[i].PrescriberName + '</td>');
@@ -203,7 +191,7 @@ require_once APPLICATION_PATH . '/header.php';
 						tbody.append(row);
 					}
 				},
-				error: function() {
+				error: function(error) {
 					$('#loader').hide();
 					alert('Error fetching data from DAMA. Request was rejected or no internet connection.');
 					//console.log(response);
